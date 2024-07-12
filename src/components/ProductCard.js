@@ -41,7 +41,7 @@ export default function App() {
                   {item.price}
                 </MDBCardText>
                 <MDBCardText>Quantity:
-                  {item.quantity}
+                  {item.quantity ? item.quantity : 0}
                 </MDBCardText>
                 <MDBBtn onClick={() => dispatch(addToCart(item))} href="#">Add to Cart</MDBBtn>
               </MDBCardBody>

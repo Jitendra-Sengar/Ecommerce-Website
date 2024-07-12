@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCartTotal } from '../features/CartSlice';
 
 export default function App() {
-  const {cart,totalQuantity}=useSelector((state)=>state.allCart)
+  const {data,totalQuantity}=useSelector((state)=>state.allCart)
   const dispatch=useDispatch()
   useEffect(()=>{
     dispatch(getCartTotal())
-  },[cart])
+  },[data, dispatch])
 
 
 

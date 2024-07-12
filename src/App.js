@@ -4,6 +4,7 @@ import ProductCard from "./components/ProductCard"
 import CartPage from './components/CartPage'
 import Banner from "./components/Banner"
 import Footer from "./components/Footer"
+
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       </Routes>
     </div>
     <Footer/>
+    
     </BrowserRouter>
   )
 }

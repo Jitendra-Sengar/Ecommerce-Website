@@ -1,14 +1,24 @@
-import { createSlice} from '@reduxjs/toolkit'
-import productData from "../productData"
+import { createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+
 const initialState={
     cart:[],
-    items:productData,
+    items:[],
     totalQuantity: 0,
     totalPrice: 0,
 };
+
+export const fetchProducts=createAsyncThunk("fetchProducts",async ()=>{
+    const response=await fetch("https://fakestoreapi.com/products");
+    return response.json()
+})
+
 export const CartSlice=createSlice({
     name:"cart",
-    initialState,
+    initialState:{
+        isLoading:false,
+        data:null,
+        isError:false
+    },
     reducers:{
         addToCart:(state,action)=>{
             let find=state.cart.findIndex((item)=>item.id===action.payload.id);
@@ -59,6 +69,19 @@ export const CartSlice=createSlice({
                 return item;
             })
         }
+    },
+    extraReducers: (builder)=>{
+        builder.addCase(fetchProducts.pending,(state,action)=>{
+            state.isLoading=true;
+        });
+        builder.addCase(fetchProducts.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.data=action.payload
+        });
+        builder.addCase(fetchProducts.rejected,(state,action)=>{
+            console.log("Error",action.payload);
+            state.isError=true;
+        })
     }
 })
 

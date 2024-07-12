@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MDBCard,
   MDBCardBody,
@@ -11,15 +11,24 @@ import {
   MDBCol,
 } from "mdb-react-ui-kit";
 import { useSelector ,useDispatch} from "react-redux";
-import { addToCart } from '../features/CartSlice';
+import { addToCart,fetchProducts } from '../features/CartSlice';
 export default function App() {
-  const items = useSelector((state) => state.allCart.items);
+  const state = useSelector((state) => state);
   const dispatch=useDispatch();
-  console.log(items)
+  useEffect(() => {
+    dispatch(fetchProducts());
+}, [dispatch]);
+
+
+  if(state.allCart,isLoading){
+    return <h1>Loading...</h1>
+  }
+
+
   return (
     <MDBContainer>
       <MDBRow className="mb-3">
-        {items.map((item)=>(
+        {state.allCart.data.map((item)=>(
           <MDBCol key={item.product_id} size="md">
           <MDBCard>
             <MDBCardImage
